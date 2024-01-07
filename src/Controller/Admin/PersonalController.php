@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 #[Route('/personal', name: 'personal')]
-class ClientesController extends AbstractController
+class PersonalController extends AbstractController
 {
     #[Route('/clientes/{clientId}', name: '_clientes', requirements: ['clientId' => '\d+'], methods: ["GET"])]
     public function clientes(string $clientId): Response
