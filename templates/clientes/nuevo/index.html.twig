@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<h1>nuevo cliente</h1>
+
+    {% for flash_message in app.session.flashbag.get('success') %}
+        <div class="flash-notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+
+    <div style="background-color: #3b82f6">
+        {{ form_label(form.nombre) }}
+        {{ form_widget(form.nombre) }}
+    </div>
+
+    <div style="background-color: red">
+        {{ form_label(form.personaContacto) }}
+        {{ form_widget(form.personaContacto) }}
+    </div>
+
+    <div style="background-color: greenyellow">
+        {{ form_label(form.nif) }}
+        {{ form_widget(form.nif) }}
+    </div>
+
+    <div style="background-color: orange">
+        {{ form_label(form.direccion) }}
+        {{ form_widget(form.direccion) }}
+    </div>
+
+    <div style="background-color: burlywood">
+        {{ form_label(form.localidad) }}
+        {{ form_widget(form.localidad) }}
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
