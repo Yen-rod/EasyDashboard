@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            {#$('#clientes').DataTable({#}
+            {#    ajax: '{{ path('personal_clientes_listado_ajax') }}',#}
+            {#    processing: true,#}
+            {#    serverSide: true#}
+            {#});#}
+
+            $('#clientes').DataTable();
+        } );
+    </script>
+{% endblock %}
+{% block body %}
+<div class="col-12">
+    <span>Hola, <b>{{ app.user.email|get_user_name }}</b> Hoy es {{ get_user_greetings("now"|date('Y-m-d H:i:s')) }}</b> </span>
+</div>
+<table style="border: 1px;background-color: burlywood" id="clientes">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nif</th>
+            <th>Nombre</th>
+            <th>Persona Contacto</th>
+
+            <th>Created At</th>
+            <th>Updated At</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            {% for cliente in clientes %}
+            <tr>
+                <td><a href="{{ path('personal_clientes',{'clientId':cliente.id}) }}"><b>{{ cliente.id }}</b></a></td>
+                <td>{{ cliente.nif }}</td>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.personaContacto }}</td>
+                <td>{{ cliente.createdAt|date }}</td>
+                <td>{{ cliente.updatedAt|date }}</td>
+            </tr>
+            {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

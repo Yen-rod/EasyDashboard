@@ -13,12 +13,3 @@ Por último crearemos un sistema de acceso de usuarios con contraseña.
 [https://symfony.com/doc/current/forms.htm]()
 #### Restricciones de symfony
 [https://symfony.com/doc/current/reference/constraints.html]()
-
-## DataTables
-[https://datatables.net/]()
-
-Son un plugin de jQuery que permite visualizar datos almacenados en una table
-de manera dinámica y con filtros aplicados.
-
- - Renderizado normal - Pros y contras .
- - Ajax - Pros y contras.
