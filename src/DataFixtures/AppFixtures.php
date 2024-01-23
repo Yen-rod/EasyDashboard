@@ -13,7 +13,7 @@ class AppFixtures extends Fixture
         $user = new User();
         $user->setEmail('yen@gmail.com');
         $user->setRoles(["ROLE_ADMIN"]);
-        $user->setPassword('$2a$04$wKvPa.NkTQCqdkFX75qrvuAvMcYlexwayeiCD64Op15MStCSfMmna');
+        $user->setPassword('$2a$04$McAxb5/iWfMpSiKxbdcCs.7.WNFuGk1xfHGuIbebfpo8NH4BknkQC');
 
         $manager->persist($user);
 
