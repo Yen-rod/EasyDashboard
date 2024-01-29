@@ -1,6 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-
+    globals:
+        domain: 'http://tus-clases.net'
+        htmlAdmin: 'assets/html/NiceAdmin/'
 when@test:
     twig:
         strict_variables: true

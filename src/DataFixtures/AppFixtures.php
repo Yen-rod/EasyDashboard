@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Cliente;
+use App\Entity\Client;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
 
         $fake = Factory::create();
         for ($i=0;$i<5000;$i++) {
-            $cliente = new Cliente();
+            $cliente = new Client();
             $cliente->setNombre($fake->name);
             $cliente->setPersonaContacto(sprintf('%s %s', $fake->name,$fake->lastName));
             $cliente->setDireccion($fake->address);

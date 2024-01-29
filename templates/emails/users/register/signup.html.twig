@@ -1,0 +1,7 @@
+<h2>
+    Hola, {{ user.email }}
+</h2>
+<p>
+    Para poder utilizar la aplicación, necesitamos verificar tu email. Puedes verificar tu email haciendo
+    click aquí: <a style="color:blue" href="{{ domain ~ path('app_user_activate',{'token' :  user.token }) }}">aquí</a>
+</p>

@@ -15,10 +15,11 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\Authenticator
+            user_checker: App\Security\UserChecker
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_login
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -27,8 +28,7 @@ security:
                 always_remember_me: true
 
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/personal, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:

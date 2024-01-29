@@ -51,7 +51,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
         $userType = $token->getUser();
 
         return (in_array('ROLE_ADMIN',$userType->getRoles()))
-        ?  new RedirectResponse($this->urlGenerator->generate('dashboard'))
+        ?  new RedirectResponse($this->urlGenerator->generate('app_dashboard'))
         :  new RedirectResponse($this->urlGenerator->generate('home'));
 
     }
