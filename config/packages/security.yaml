@@ -28,7 +28,7 @@ security:
                 always_remember_me: true
 
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/personal, roles: ROLE_ADMIN }
 
 when@test:
     security:

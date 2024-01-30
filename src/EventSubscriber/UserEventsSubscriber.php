@@ -53,7 +53,7 @@ class UserEventsSubscriber implements EventSubscriberInterface
 
         $this->emailForReset(
             $event->getUser(),
-            'emails/usuario/linkToResetPassword.html.twig'
+            'emails/users/reset-password/linkToResetPassword.html.twig'
         );
     }
 

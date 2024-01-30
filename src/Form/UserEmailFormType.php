@@ -16,8 +16,7 @@ class UserEmailFormType extends AbstractType
         $builder
             ->add('email',EmailType::class,[
                 'mapped'=>false
-            ])
-            ->add('submit', SubmitType::class);
+            ]);
 
     }
 

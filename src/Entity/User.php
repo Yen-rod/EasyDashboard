@@ -184,4 +184,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function activate(): self
+    {
+        $this->activo = User::USER_IS_ACTIVE;
+        $this->token = null;
+
+        return $this;
+    }
 }

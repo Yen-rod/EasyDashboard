@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Cliente;
+use App\Entity\Client;
 use App\Form\ClienteType;
-use App\Repository\ClienteRepository;
+use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class PersonalController extends AbstractController
 
     #[Route('/clientes/show/{clientId}', name: '_clientes', requirements: ['clientId' => '\d+'], methods: ["GET"])]
     public function cliente(
-        #[MapEntity(mapping: ['clientId' => 'id'])]Cliente $cliente
+        #[MapEntity(mapping: ['clientId' => 'id'])]Client $cliente
     ): Response
     {
         return $this->render("clientes/show.html.twig",[
@@ -57,7 +57,7 @@ class PersonalController extends AbstractController
 
 
     #[Route('/clientes/listar/ajax', name: '_clientes_listado_ajax', methods: ["GET"])]
-    public function clientesAjax(ClienteRepository $clienteRepository): JsonResponse
+    public function clientesAjax(ClientRepository $clienteRepository): JsonResponse
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -72,7 +72,7 @@ class PersonalController extends AbstractController
             'recordsTotal' => $clientesPaginated->count(),
             'recordsFiltered' => $clientesPaginated->count(),
             'data' => array_map(function ($cliente){
-                /** @var Cliente $cliente */
+                /** @var Client $cliente */
                 return [
                     $cliente->getId(),
                     $cliente->getNif(),
@@ -87,9 +87,9 @@ class PersonalController extends AbstractController
 
 
     #[Route('/clientes/listar', name: '_clientes_listado', methods: ["GET"])]
-    public function clientes(ClienteRepository $clienteRepository): Response
+    public function clientes(ClientRepository $clienteRepository): Response
     {
-        return $this->render("clientes/list.html.twig",[
+        return $this->render("dashboard/clients/list.html.twig",[
             'clientes' => $clienteRepository->findAll()
         ]);
     }

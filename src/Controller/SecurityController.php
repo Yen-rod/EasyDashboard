@@ -6,12 +6,14 @@ use App\Entity\User;
 use App\Event\UserEmailForSendEvent;
 use App\Form\UserEmailFormType;
 use App\Form\UserFormType;
+use App\Form\UserResetPasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -20,7 +22,8 @@ class SecurityController extends AbstractController
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly EntityManagerInterface $entityManager,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly UserPasswordHasherInterface $userPasswordHasher
     )
     {}
     #[Route(path: '/login', name: 'app_login')]
@@ -79,7 +82,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/forgot/pass', name: 'app_user_forgot',methods: ["GET","POST"])]
-    public function olvido(): Response
+    public function forgot(): Response
     {
         $usuarioEmailForm = $this->createForm(UserEmailFormType::class);
         $usuarioEmailForm->handleRequest($this->requestStack->getCurrentRequest());
@@ -91,19 +94,20 @@ class SecurityController extends AbstractController
             $userForResetPassword = $this->entityManager->getRepository(User::class)
                 ->findOneBy([
                     'email' => $emailForFind,
-                    'activo' => User::USER_IS_ACTIVE
+                    'activo' => true
                 ]);
 
-            if(null === $userForResetPassword){
+            if(null == $userForResetPassword){
                 $this->addFlash('error','El usuario no existe.');
+            } else {
+                $this->eventDispatcher->dispatch(
+                    new UserEmailForSendEvent($userForResetPassword),
+                    UserEmailForSendEvent::USER_RESET_ACTION
+                );
+
+                $this->addFlash('success','Se ha enviado un email de cambio de clave.');
             }
 
-            $this->eventDispatcher->dispatch(
-                new UserEmailForSendEvent($userForResetPassword),
-                UserEmailForSendEvent::USER_RESET_ACTION
-            );
-
-            $this->addFlash('success','Se ha enviado un email de cambio de clave.');
 
             return $this->redirectToRoute('app_user_forgot');
         }
@@ -115,8 +119,35 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/cambiar/clave/{token}', name: 'cambiar_clave')]
-    public function cambioClave(#[MapEntity(mapping: ['token' => 'token'])]User $userForChangePassword): Response {
-        dd($userForChangePassword);
+    public function changePassword(#[MapEntity(mapping: ['token' => 'token'])]User $userForChangePassword): Response {
+        $usuarioResetPasswordForm = $this->createForm(UserResetPasswordFormType::class);
+        $usuarioResetPasswordForm->handleRequest($this->requestStack->getCurrentRequest());
+
+        if($usuarioResetPasswordForm->isSubmitted() && $usuarioResetPasswordForm->isValid()){
+
+            // TODO move logic to EventDispatcher
+
+            $newPasswordEncrypted = $this->userPasswordHasher->hashPassword(
+                $userForChangePassword,
+                $userForChangePassword->getPassword()
+            );
+
+            $userForChangePassword->setPassword($newPasswordEncrypted);
+            $userForChangePassword->activate();
+
+            $this->entityManager->persist($userForChangePassword);
+
+            $this->entityManager->flush();
+
+
+            return $this->redirectToRoute('app_login');
+
+
+        }
+
+        return $this->render('users/reset/change-password.html.twig',[
+            'usuarioResetPasswordForm' => $usuarioResetPasswordForm->createView()
+        ]);
     }
 
 }
