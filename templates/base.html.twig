@@ -27,7 +27,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset(htmlAdmin ~ 'assets/css/style.css') }}" rel="stylesheet">
-
+    {% block javascript %}{% endblock %}
 </head>
 
 <body>
@@ -78,7 +78,7 @@
 {#<script src="{{ asset(htmlAdmin ~ 'assets/vendor/chart.js/chart.umd.js') }}"></script>#}
 {#<script src="{{ asset(htmlAdmin ~ 'assets/vendor/echarts/echarts.min.js') }}"></script>#}
 {#<script src="{{ asset(htmlAdmin ~ 'assets/vendor/quill/quill.min.js') }}"></script>#}
-{#<script src="{{ asset(htmlAdmin ~ 'assets/vendor/simple-datatables/simple-datatables.js') }}"></script>#}
+<script src="{{ asset(htmlAdmin ~ 'assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
 {#<script src="{{ asset(htmlAdmin ~ 'assets/vendor/tinymce/tinymce.min.js') }}"></script>#}
 {#<script src="{{ asset(htmlAdmin ~ 'assets/vendor/php-email-form/validate.js') }}"></script>#}
 

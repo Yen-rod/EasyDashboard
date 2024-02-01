@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready( function () {
+            $('#beers').DataTable();
+        } );
+    </script>
+{% endblock %}
+
+{% block section %}
+    <section class="section dashboard">
+    <div class="row">
+
+    <div class="col-12">
+        <span>Hola, <b>{{ app.user.email|get_user_name }}</b> Hoy es {{ get_user_greetings("now"|date('Y-m-d H:i:s')) }}</b> </span>
+    </div>
+    <table style="border: 1px;background-color: burlywood" id="beers">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>TagLine</th>
+            <th>FirstBrewed</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for beer in beers %}
+            <tr>
+                <td>{{ beer.id }}</td>
+                <td>{{ beer.name }}</td>
+                <td><img src="{{ beer.imageUrl }}" alt="" style="width: 32px;"></td>
+                <td>{{ beer.description }}</td>
+                <td>{{ beer.tagline }}</td>
+                <td>{{ beer.firstbrewed }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    </div>
+    </section>
+{% endblock %}
