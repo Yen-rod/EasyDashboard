@@ -129,7 +129,7 @@ class SecurityController extends AbstractController
 
             $newPasswordEncrypted = $this->userPasswordHasher->hashPassword(
                 $userForChangePassword,
-                $userForChangePassword->getPassword()
+                $usuarioResetPasswordForm->get('password')->getData()
             );
 
             $userForChangePassword->setPassword($newPasswordEncrypted);
