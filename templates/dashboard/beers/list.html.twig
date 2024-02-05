@@ -1,13 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}
-    <script>
-        $(document).ready( function () {
-            $('#beers').DataTable();
-        } );
-    </script>
-{% endblock %}
-
 {% block section %}
     <section class="section dashboard">
     <div class="row">
@@ -15,7 +7,7 @@
     <div class="col-12">
         <span>Hola, <b>{{ app.user.email|get_user_name }}</b> Hoy es {{ get_user_greetings("now"|date('Y-m-d H:i:s')) }}</b> </span>
     </div>
-    <table style="border: 1px;background-color: burlywood" id="beers">
+    <table class="table datatable" id="beers">
         <thead>
         <tr>
             <th>ID</th>
