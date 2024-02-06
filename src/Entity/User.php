@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -20,12 +21,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
 
+    #[Assert\NotBlank]
     #[ORM\Column]
     private ?string $password = null;
 
@@ -40,6 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $token = null;
+    #[Assert\NotBlank]
+    #[ORM\Column(length: 50)]
+    private ?string $username = null;
+
+    #[Assert\NotBlank]
+    #[ORM\Column(length: 50)]
+    private ?string $name = null;
 
     public function __construct()
     {
@@ -189,6 +199,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->activo = User::USER_IS_ACTIVE;
         $this->token = null;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
