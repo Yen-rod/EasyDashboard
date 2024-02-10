@@ -44,25 +44,25 @@
                             <div class="card-body">
 
                                 <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                                    <p class="text-center small">Enter your personal details to create account</p>
+                                    <h5 class="card-title text-center pb-0 fs-4">{% trans from 'signup' %}Create an Account{% endtrans %}</h5>
+                                    <p class="text-center small">{% trans from 'signup' %}Enter your personal details to create account{% endtrans %}</p>
                                 </div>
 
                                 {{ form_start(form) }}
                                     <div class="col-12">
-                                       {{ form_label(form.name) }}
+                                        <label for="{{ form.name.vars.id }}">{% trans from 'signup' %}Name{% endtrans %}</label>
                                        {{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
                                        {{ form_errors(form.name) }}
                                     </div>
 
                                     <div class="col-12">
-                                        {{ form_label(form.username) }}
+                                        <label for="{{ form.username.vars.id }}">{% trans from 'signup' %}Username{% endtrans %}</label>
                                         {{ form_widget(form.username,{'attr':{'class':'form-control'}}) }}
                                         {{ form_errors(form.username) }}
                                     </div>
 
                                     <div class="col-12">
-                                        {{ form_label(form.email) }}
+                                        <label for="{{ form.email.vars.id }}">{% trans from 'signup' %}Email{% endtrans %}</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
 
@@ -72,7 +72,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        {{ form_label(form.password) }}
+                                        <label for="{{ form.password.vars.id }}">{% trans from 'signup' %}Password{% endtrans %}</label>
                                         {{ form_widget(form.password,{'attr':{'class':'form-control'}}) }}
                                         {{ form_errors(form.password) }}
                                     </div>
@@ -80,12 +80,12 @@
                                     <div class="col-12 mt-5">
                                         <div class="form-check">
                                             <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                                            <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                                            <div class="invalid-feedback">You must agree before submitting.</div>
+                                            <label class="form-check-label" for="acceptTerms">{% trans from 'signup' %}I agree and accept the terms and conditions{% endtrans %}</label>
+                                            <div class="invalid-feedback">{% trans from 'signup' %}You must agree before submitting.{% endtrans %}</div>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                                        <button class="btn btn-primary w-100" type="submit">{% trans from 'signup' %}Create Account{% endtrans %}</button>
                                     </div>
                                     <div class="col-12">
                                         <p class="small mb-0">Already have an account? <a href="{{ path('app_login') }}">Log in</a></p>
