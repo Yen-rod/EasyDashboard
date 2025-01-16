@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-### esto es un fichero de lectura de ejemplo
-=======
-# NewProjectName 🎛️
 
-**NewProjectName** es una aplicación de administración basada en Symfony, diseñada para gestionar usuarios y proporcionar un panel de control funcional y visualmente atractivo.
+# EasyDashboard 🎛️
+
+**EasyDashboard
+** es una aplicación de administración basada en Symfony, diseñada para gestionar usuarios y proporcionar un panel de control funcional y visualmente atractivo.
 
 ## 🌟 Características
 - **Inicio de sesión seguro**: Los usuarios pueden autenticarse y gestionar sus datos.
